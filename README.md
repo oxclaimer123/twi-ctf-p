@@ -1,19 +1,25 @@
 # twi-ctf-p
 
+
+To start Project - step by step -
+
+
 Requirements
 Node.js
-Download and install from: https://nodejs.org/
+1-Download and install from: https://nodejs.org/
 
 npm
-Comes with Node.js by default.
+- Comes with Node.js by default.
 
-XAMPP
+2-XAMPP
 For running Apache and MySQL locally.
 Download from: https://www.apachefriends.org/
 
-ngrok
+3-ngrok
 To expose your local server to the internet.
 Download from: https://ngrok.com/download
+
+----------------------------------------------- ---  
 
 Setup Instructions
 Install dependencies:
@@ -34,10 +40,9 @@ In your terminal, run:
 Copy the generated ngrok URL and use it as described above.
 Start your server:
 
-If you have a file like server.js, run:
-Quick Commands
+------------------------------------------------------------
 
 npm init -y
 npm install express
 ngrok http 3001
-node server.js
+node index.js
