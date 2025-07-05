@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <title>CTF - Python</title>
+    <style>
+        body {
+            background: #101426 !important;
+        }
+        .profile-card {
+            background: #181c2f;
+            border-radius: 2rem;
+            box-shadow: 0 4px 32px #0008;
+            padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+            max-width: 420px;
+            margin: 0 auto;
+            position: relative;
+            margin-top: 40px;
+        }
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #23284a;
+            border: 4px solid #fff;
+            margin: -80px auto 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: #fff;
+            box-shadow: 0 0 0 6px #19875499;
+            position: relative;
+            z-index: 2;
+        }
+        .profile-rank-badge {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: #ffd700;
+            color: #23284a;
+            font-weight: bold;
+            border-radius: 1.5rem;
+            padding: 0.4em 1.2em;
+            font-size: 1.1em;
+            box-shadow: 0 2px 8px #0002;
+            z-index: 3;
+        }
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 1.2rem;
+            margin-bottom: 0.2rem;
+            text-shadow: 0 1px 8px #000,0 0 2px #ffd700;
+        }
+        .profile-username {
+            color: #aaa;
+            font-size: 1.1rem;
+            margin-bottom: 0.7rem;
+        }
+        .profile-points {
+            font-size: 1.2rem;
+            color: #ffd700;
+            font-weight: bold;
+        }
+        .profile-progress {
+            margin: 1.5rem 0 0.5rem 0;
+        }
+        .profile-dashboard {
+            background: #181c2f;
+            border-radius: 1.5rem;
+            margin-top: 2.2rem;
+            box-shadow: 0 2px 16px #00ff9955;
+            padding: 2rem 1.2rem 1.2rem 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-dashboard::before {
+            content: "";
+            position: absolute;
+            top: -40px; left: -40px; right: -40px; bottom: -40px;
+            background: radial-gradient(circle at 80% 20%, #00ff99 0%, #23284a 60%);
+            opacity: 0.07;
+            z-index: 0;
+        }
+        .profile-dashboard .row {
+            margin-bottom: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+        .profile-dashboard-label {
+            color: #00ff99;
+            font-size: 1.08em;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px #00ff9955;
+        }
+        .profile-dashboard-value {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.13em;
+            text-shadow: 0 0 8px #00ff9955;
+        }
+        .profile-dashboard-list {
+            background: #23284a;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px #00ff9955;
+            color: #fff;
+            font-size: 1.05em;
+            max-height: 180px;
+            overflow-y: auto;
+        }
+        .progress {
+            height: 1.2rem;
+            background: #23284a;
+            border-radius: 1rem;
+        }
+        .progress-bar {
+            font-weight: bold;
+            font-size: 1em;
+            background: linear-gradient(90deg, #00ff99 0%, #198754 100%);
+            box-shadow: 0 0 16px #00ff99aa;
+        }
+        @media (max-width: 600px) {
+            .profile-card { padding: 1.5rem 0.5rem 1rem 0.5rem; }
+            .profile-dashboard { padding: 1rem 0.5rem 0.5rem 0.5rem; }
+        }
+        #name {
+            color: black;
+            background-color: white;
+            border: 2px solid #123;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            text-transform: capitalize;
+            transition: background-color 0.3s, color 0.9s;
+            padding: 9px;
+        }
+        #name:hover {
+            background-color: black;
+            border: white 2px solid;
+            color: white ;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-xxl">
+        <nav style="border-radius: 30px; border: 3px solid #fff; padding: 20px; margin: 20px 0;" class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Python - CTF - tuwaiq academy</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="/home" class="nav-link active" aria-current="page">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="leaderbord" class="nav-link active" aria-current="page" href="/leaderbord">Leaderbord</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">ar</a></li>
+                                <li><a class="dropdown-item" href="#">en</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <button id="name"></button>
+                </div>
+            </div>
+        </nav>
+        <div class="profile-card position-relative">
+            <div class="profile-rank-badge" id="profile-rank-badge">#-</div>
+            <div class="profile-avatar" id="profile-avatar">
+                <i class="bi bi-person"></i>
+            </div>
+            <div class="profile-name" id="profile-name">-</div>
+            <div class="profile-username" id="profile-username">@-</div>
+            <div class="profile-points" id="profile-points">0 نقطة</div>
+            <div class="profile-progress">
+                <div class="progress">
+                    <div class="progress-bar" id="profile-progress-bar" style="width: 0%">0%</div>
+                </div>
+            </div>
+            <div class="profile-dashboard mt-4">
+                <div class="profile-dashboard-list" id="profile-solved-list">
+                    <span style="color:#00ff99;font-weight:bold;">التحديات التي تم حلها:</span>
+                    <ul id="solved-challenges-ul" style="margin:0;padding:0 0 0 18px;"></ul>
+                </div>
+                <div class="row">
+                    <div class="col-6 profile-dashboard-label">التحديات المحلولة</div>
+                    <div class="col-6 profile-dashboard-value text-end" id="profile-challenges">-</div>
+                </div>
+                <div class="row">
+                    <div class="col-6 profile-dashboard-label">النقاط</div>
+                    <div class="col-6 profile-dashboard-value text-end" id="profile-points2">-</div>
+                </div>
+                <div class="row">
+                    <div class="col-6 profile-dashboard-label">مركزك</div>
+                    <div class="col-6 profile-dashboard-value text-end" id="profile-rank">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    // Fetch and display user profile data
+    window.onload = async function () {
+        const username = localStorage.getItem('username');
+        if (!username) {
+            document.getElementById('name').textContent = 'زائر';
+            document.getElementById('profile-name').textContent = 'زائر';
+            document.getElementById('profile-username').textContent = '@-';
+            document.getElementById('profile-points').textContent = '0 نقطة';
+            document.getElementById('profile-challenges').textContent = '-';
+            document.getElementById('profile-points2').textContent = '-';
+            document.getElementById('profile-rank').textContent = '-';
+            document.getElementById('profile-rank-badge').textContent = '#-';
+            document.getElementById('profile-progress-bar').style.width = '0%';
+            document.getElementById('profile-progress-bar').textContent = '0%';
+            document.getElementById('solved-challenges-ul').innerHTML = '<li style="color:#aaa;">لا يوجد تحديات محلولة بعد</li>';
+            return;
+        }
+        document.getElementById('name').textContent = username;
+        try {
+            // Fetch user info
+            const res = await fetch('url here /userinfo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
+            const data = await res.json();
+            document.getElementById('profile-name').textContent = data.name || username;
+            document.getElementById('profile-username').textContent = '@' + username;
+            document.getElementById('profile-points').textContent = (data.points ?? 0) + ' نقطة';
+            document.getElementById('profile-points2').textContent = data.points ?? '-';
+            document.getElementById('profile-rank').textContent = data.rank ?? '-';
+            document.getElementById('profile-rank-badge').textContent = data.rank ? `#${data.rank}` : '#-';
+            document.getElementById('profile-challenges').textContent = data.challenges ?? '-';
+            if (data.avatar) {
+                document.getElementById('profile-avatar').innerHTML = `<img src="${data.avatar}" style="width:100%;height:100%;border-radius:50%;">`;
+            }
+            // Progress bar calculation
+            let percent = 0;
+            if (typeof data.challenges === 'number' && data.total_challenges) {
+                percent = Math.round((data.challenges / data.total_challenges) * 100);
+            } else if (typeof data.challenges === 'number') {
+                percent = Math.min(100, data.challenges * 10);
+            }
+            document.getElementById('profile-progress-bar').style.width = percent + '%';
+            document.getElementById('profile-progress-bar').textContent = percent + '%';
+
+            // Fetch solved challenges
+            let solvedList = '';
+            try {
+                const solvedRes = await fetch('url here /userchallenges', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username })
+                });
+                const solvedData = await solvedRes.json();
+                if (Array.isArray(solvedData.solved_challenges) && solvedData.solved_challenges.length > 0) {
+                    for (let chal of solvedData.solved_challenges) {
+                        solvedList += `<li style="margin-bottom:4px;"><i class="bi bi-check-circle-fill" style="color:#00ff99"></i> <span style="color:#fff">${chal}</span></li>`;
+                    }
+                } else {
+                    solvedList = '<li style="color:#aaa;">لا يوجد تحديات محلولة بعد</li>';
+                }
+            } catch (err) {
+                solvedList = '<li style="color:#aaa;">لا يوجد تحديات محلولة بعد</li>';
+            }
+            document.getElementById('solved-challenges-ul').innerHTML = solvedList;
+
+        } catch (err) {
+            document.getElementById('profile-name').textContent = 'خطأ في الاتصال';
+            document.getElementById('profile-username').textContent = '@-';
+            document.getElementById('profile-points').textContent = '0 نقطة';
+            document.getElementById('profile-challenges').textContent = '-';
+            document.getElementById('profile-points2').textContent = '-';
+            document.getElementById('profile-rank').textContent = '-';
+            document.getElementById('profile-rank-badge').textContent = '#-';
+            document.getElementById('profile-progress-bar').style.width = '0%';
+            document.getElementById('profile-progress-bar').textContent = '0%';
+            document.getElementById('solved-challenges-ul').innerHTML = '<li style="color:#aaa;">لا يوجد تحديات محلولة بعد</li>';
+        }
+    };
+    document.getElementById('name').addEventListener('click', function() {
+        window.location.href = '/profile';
+    });
+    document.getElementById('leaderbord').addEventListener('click', function() {
+        window.location.href = '/leaderbord';
+    });
+</script>
+</body>
+</html>

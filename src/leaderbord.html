@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Leaderbord</title>
+    <style>
+        /* ...existing styles... */
+        #search_input.form-control {
+            border-radius: 15px 0 0 15px !important;
+            background-color: #fff !important;
+            border: 1px solid #000000 !important;
+        }
+        #search_btn.btn {
+            border-radius: 0px 15px 15px 0px !important;
+            border: none !important;
+            border: 1px solid #000000 !important;
+            position: relative;
+            left: -5px;
+            background-color: white !important;
+            color: black !important ;
+        }
+        #search_btn:hover{
+            background-color: rgb(61, 61, 61) !important;
+            color: black !important;
+            border: 1px solid #000000 !important;
+        }
+        #search_form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .username-display {
+            color: black;
+            background-color: white;
+            border: 2px solid #123;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            text-transform: capitalize;
+            pointer-events: none;
+            transition: background-color 0.3s, color 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 159, 0.5);
+            padding: 9px;
+        }
+        .username-display:hover {
+            background-color: red;
+            border: white 2px solid;
+            color: white ;
+        }
+        #name {
+            color: black;
+            background-color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            transition:  0.9s;
+            padding: 9px;
+        }
+        #name:hover {
+            border: rgb(16, 16, 16) 2px solid;
+            color: rgb(32, 32, 32) ;
+        }
+        #profile {
+            color: black;
+            background-color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            text-transform: capitalize;
+            transition: 0.9s;
+            padding: 9px;
+            position: relative;
+            left: 3px;
+        }
+        #profile:hover {
+            border: rgb(16, 16, 16) 2px solid;
+            color: rgb(32, 32, 32) ;
+        }
+        body { background: #101426 !important; }
+        .nav-tabs { border: none; }
+        .nav-tabs .nav-link.active { background: #23284a; border: none; }
+        .nav-tabs .nav-link { border: none; border-radius: 2rem; }
+        #top3 .top-card {
+            background: #181c2f;
+            border-radius: 1.5rem;
+            min-width: 110px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+        }
+        #top3 .top-card.gold { min-height: 210px; box-shadow: 0 0 0 4px #ffd70044; }
+        #top3 .avatar {
+            width: 64px; height: 64px; border-radius: 50%; background: #222; margin-bottom: 8px; border: 3px solid #fff;
+            display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff;
+        }
+        #top3 .gold .avatar { border-color: #ffd700; }
+        #top3 .silver .avatar { border-color: #b0b0b0; }
+        #top3 .bronze .avatar { border-color: #c97a3a; }
+        #top3 .crown { position: absolute; top: -32px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; color: #ffd700; }
+        #rest .rest-item {
+            display: flex; align-items: center; gap: 1rem; padding: 12px 0; border-bottom: 1px solid #23284a;
+        }
+        #rest .rest-item:last-child { border-bottom: none; }
+        #rest .avatar {
+            width: 40px; height: 40px; border-radius: 50%; background: #23284a; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem;
+        }
+        .score { font-weight: bold; color: #ffd700; }
+        .arrow-up { color: #00ff99; font-size: 1.1em; }
+        .arrow-down { color: #ff4d4d; font-size: 1.1em; }
+        .username { color: #fff; font-size: 1.1em; }
+        .usernick { color: #aaa; font-size: 0.9em; }
+    </style>
+</head>
+<body style="background-color: #123;">
+    <div class="container-xxl">
+        <nav style="border-radius: 30px; border: 3px solid #fff; padding: 20px; margin: 20px 0;" class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Python - CTF - tuwaiq academy</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="/home" class="nav-link active" aria-current="page">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Leaderbord</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">ar</a></li>
+                                <li><a class="dropdown-item" href="#">en</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <button id="name"></button>
+                    <button id="profile">Profile</button>
+                </div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column align-items-center justify-content-center min-vh-100" style="margin-top:-60px;">
+            <div class="container py-4" style="max-width: 600px;">
+                <div class="d-flex align-items-center mb-3 justify-content-center">
+                    <h2 class="text-center flex-grow-1 mb-0 text-white">Leaderboard</h2>
+                </div>
+                <ul class="nav nav-tabs nav-fill mb-4 bg-dark rounded-pill p-1" id="leaderTabs">
+                    <li class="nav-item"><a class="nav-link text-white-50" href="#">Welcome</a></li>
+                </ul>
+                <div id="top3" class="d-flex justify-content-center align-items-end mb-4 gap-2"></div>
+                <div id="rest" class="rounded-4 p-3" style="background:#181c2f;"></div>
+            </div>
+        </div>
+    <script>
+    // Set username in navbar or show guest if not logged in
+    window.onload = async function () {
+        const username = localStorage.getItem('username');
+        if (!username) {
+            document.getElementById('name').textContent = 'زائر';
+        } else {
+            try {
+                const res = await fetch('https://bb11-37-224-52-18.ngrok-free.app/userinfo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username })
+                });
+                const data = await res.json();
+                if (res.ok && data.name) {
+                    document.getElementById('name').textContent = data.name;
+                } else {
+                    document.getElementById('name').textContent = 'مستخدم غير معروف';
+                }
+            } catch (err) {
+                document.getElementById('name').textContent = 'خطأ في الاتصال';
+            }
+        }
+
+        // Fetch all users from the database and render leaderboard
+        try {
+            const res = await fetch('https://bb11-37-224-52-18.ngrok-free.app/leaderboard');
+            if (!res.ok) {
+                const errorText = await res.text();
+                document.getElementById('rest').innerHTML = `<div class="alert alert-danger">خطأ في جلب البيانات: ${res.status} - ${errorText}</div>`;
+                return;
+            }
+            const users = await res.json();
+            if (Array.isArray(users)) {
+                renderLeaderboard(users);
+            } else {
+                document.getElementById('rest').innerHTML = '<div class="alert alert-warning">البيانات المستلمة غير صحيحة</div>';
+            }
+        } catch (err) {
+            document.getElementById('rest').innerHTML = `<div class="alert alert-danger">خطأ في جلب البيانات: ${err.message}</div>`;
+        }
+    };
+
+    document.getElementById('name').addEventListener('click', function() {
+        window.location.href = '/profile';
+    });
+    document.getElementById('profile').addEventListener('click', function() {
+        window.location.href = '/profile';
+    });
+
+    // Render leaderboard table
+    function renderLeaderboard(users) {
+        // Sort by points descending
+        users = users.sort((a, b) => (b.points || 0) - (a.points || 0));
+        // Add rank to each user
+        users = users.map((u, i) => ({ ...u, rank: i + 1, avatar: u.avatar || null }));
+        // Top 3
+        const top3 = users.slice(0, 3);
+        const medals = [
+            { class: 'gold', icon: '👑' },
+            { class: 'silver', icon: '2' },
+            { class: 'bronze', icon: '3' }
+        ];
+        let topHtml = '';
+        for (let i = 0; i < 3; i++) {
+            const u = top3[i];
+            if (!u) {
+                topHtml += `<div class="top-card ${medals[i].class} d-flex flex-column align-items-center justify-content-end"></div>`;
+                continue;
+            }
+            topHtml += `<div class="top-card ${medals[i].class} position-relative">
+                ${i === 0 ? `<span class='crown'>👑</span>` : ''}
+                <div class="avatar mb-1">${u.avatar ? `<img src='${u.avatar}' style='width:100%;height:100%;border-radius:50%;'>` : `<i class='bi bi-person'></i>`}</div>
+                <div class="username" style="font-size:1.3em;font-weight:bold;color:#fff;text-shadow:0 1px 8px #000,0 0 2px #ffd700;">${u.name}</div>
+                <div class="score">${u.points} <span style='font-size:0.7em;color:#fff;'>نقطة</span></div>
+                <div class="usernick">@${u.username}</div>
+                <div class="rank-badge badge bg-warning text-dark mt-1">المركز ${u.rank}</div>
+            </div>`;
+        }
+        document.getElementById('top3').innerHTML = topHtml;
+
+        // The rest of the leaderboard
+        let restHtml = '';
+        for (let i = 3; i < users.length; i++) {
+            const u = users[i];
+            restHtml += `<div class="rest-item">
+                <div class="avatar">${u.avatar ? `<img src='${u.avatar}' style='width:100%;height:100%;border-radius:50%;'>` : `<i class='bi bi-person'></i>`}</div>
+                <div class="flex-grow-1">
+                    <div class="username" style="font-size:1.1em;font-weight:bold;color:#fff;text-shadow:0 1px 8px #000,0 0 2px #ffd700;">${u.name}</div>
+                    <div class="usernick">@${u.username}</div>
+                </div>
+                <div class="score me-2">${u.points} <span style='font-size:0.8em;color:#fff;'>نقطة</span></div>
+                <span class="badge bg-secondary">${u.rank}</span>
+                <span>${u.up ? '<i class="bi bi-arrow-up-short arrow-up"></i>' : '<i class="bi bi-arrow-down-short arrow-down"></i>'}</span>
+            </div>`;
+        }
+        document.getElementById('rest').innerHTML = restHtml || '<div class="text-center text-white-50">لا يوجد متصدرين آخرين</div>';
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CSS for consistent UI -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General body styling */
+        body {
+            background: #232946;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+        }
+        /* Challenge box container */
+        .challenge-box {
+            background: #16161a;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            max-width: 600px;
+            margin: 40px auto 0 auto;
+            padding: 32px 24px 24px 24px;
+        }
+        /* Dropdown menu styling */
+        .dropdown-menu {
+            min-width: 120px;
+        }
+        /* Radio button checked style */
+        .form-check-input:checked {
+            background-color: #eebbc3;
+            border-color: #eebbc3;
+        }
+        .form-check-label {
+            cursor: pointer;
+        }
+        /* Button styling */
+        .btn-secondary, .btn-outline-light {
+            border-radius: 8px;
+        }
+        .btn-secondary {
+            background: #eebbc3;
+            color: #232946;
+            border: none;
+        }
+        .btn-secondary:disabled {
+            background: #b8b8b8;
+            color: #fff;
+        }
+        .btn-outline-light {
+            border: 2px solid #eebbc3;
+            color: #eebbc3;
+            background: transparent;
+        }
+        .btn-outline-light:hover, .btn-outline-light:focus {
+            background: #eebbc3;
+            color: #232946;
+        }
+        /* Alert styling */
+        .alert {
+            border-radius: 8px;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        /* Code block styling */
+        pre {
+            background: #232946;
+            color: #eebbc3;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 1em;
+            overflow-x: auto;
+        }
+        /* Responsive design for mobile */
+        @media (max-width: 700px) {
+            .challenge-box {
+                padding: 16px 4vw 16px 4vw;
+                max-width: 98vw;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="challenge-box">
+        <!-- Language selection dropdown -->
+        <div class="d-flex justify-content-end mb-2">
+            <div class="dropdown">
+                <button class="btn btn-outline-light dropdown-toggle" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span id="lang-label">العربية</span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="langDropdown">
+                    <li><a class="dropdown-item" href="#" id="lang-ar">العربية</a></li>
+                    <li><a class="dropdown-item" href="#" id="lang-en">English</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Challenge title -->
+        <h3 class="mb-3" id="challenge-title">أسئلة بايثون متقدمة</h3>
+        <!-- Quiz form -->
+        <form id="quiz_form">
+            <div id="questions-box"></div>
+            <div id="quiz_msg" class="mt-2"></div>
+            <div class="d-flex flex-row gap-2 mt-3 justify-content-center align-items-center">
+                <button id="sure" type="submit" class="btn btn-secondary btn-lg" style="font-size:1.1em;min-width:120px;">تأكيد الحل</button>
+            </div>
+            <div class="d-flex flex-row justify-content-center align-items-center mt-4">
+                <button type="button" id="back-btn" class="btn btn-outline-light btn-lg" style="min-width:140px;font-size:1.1em;">
+                    <span id="back-btn-label">العودة للتحديات</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <script>
+    // API endpoint
+    const API = 'server url';
+
+    // Quiz questions in both Arabic and English
+    const quizQuestions = [
+        {
+            id: 1,
+            ar: {
+                q: 'ما ناتج الكود التالي؟<br><pre>print("A", "B", "C", sep="--", end="***")<br>print("D")</pre>',
+                opts: [
+                    'A--B--C***D',
+                    'A--B--C***\nD',
+                    'A--B--C***D\n',
+                    'A--B--C\n***D'
+                ],
+                ans: 1
+            },
+            en: {
+                q: 'What is the output of the following code?<br><pre>print("A", "B", "C", sep="--", end="***")\nprint("D")</pre>',
+                opts: [
+                    'A--B--C***D',
+                    'A--B--C***\nD',
+                    'A--B--C***D\n',
+                    'A--B--C\n***D'
+                ],
+                ans: 1
+            }
+        },
+        {
+            id: 2,
+            ar: {
+                q: 'ما ناتج الكود التالي؟<br><pre>print("Line1\\tLine2\\nLine3\\\\End")</pre>',
+                opts: [
+                    'Line1\tLine2\nLine3\\End',
+                    'Line1 Line2 Line3 End',
+                    'Line1tLine2nLine3End',
+                    'Line1\\tLine2\\nLine3\\\\End'
+                ],
+                ans: 0
+            },
+            en: {
+                q: 'What is the output of the following code?<br><pre>print("Line1\\tLine2\\nLine3\\\\End")</pre>',
+                opts: [
+                    'Line1\tLine2\nLine3\\End',
+                    'Line1 Line2 Line3 End',
+                    'Line1tLine2nLine3End',
+                    'Line1\\tLine2\\nLine3\\\\End'
+                ],
+                ans: 0
+            }
+        },
+        {
+            id: 3,
+            ar: {
+                q: 'ما نوع البيانات الناتجة من التعبير التالي في بايثون 3؟<br><pre>type(3 / 2)</pre>',
+                opts: [
+                    "<class 'int'>",
+                    "<class 'float'>",
+                    "<class 'str'>",
+                    "<class 'complex'>"
+                ],
+                ans: 1
+            },
+            en: {
+                q: 'What is the data type of the result of the following expression in Python 3?<br><pre>type(3 / 2)</pre>',
+                opts: [
+                    "<class 'int'>",
+                    "<class 'float'>",
+                    "<class 'str'>",
+                    "<class 'complex'>"
+                ],
+                ans: 1
+            }
+        }
+    ];
+
+    // Translations for UI and messages
+    const translations = {
+        ar: {
+            lang: 'العربية',
+            challengeTitle: 'أسئلة بايثون متقدمة',
+            sureBtn: 'تأكيد الحل',
+            backBtn: 'العودة للتحديات',
+            alreadySolved: 'تم حل التحدي مسبقًا، لا يمكنك إعادة الحل أو الحصول على نقاط إضافية.',
+            success: points => `أحسنت! تم حل التحدي وإضافة ${points} نقطة إلى حسابك.`,
+            loginFirst: 'يجب تسجيل الدخول أولاً',
+            errorAdd: 'حدث خطأ في إضافة النقاط',
+            serverError: 'تعذر الاتصال بالسيرفر',
+            wrong: 'الحل غير صحيح. حاول مرة أخرى!',
+            checking: 'جاري التحقق من الحل...'
+        },
+        en: {
+            lang: 'English',
+            challengeTitle: 'Advanced Python Questions',
+            sureBtn: 'Submit Solution',
+            backBtn: 'Back to Challenges',
+            alreadySolved: 'You have already solved this challenge. You cannot solve it again or get extra points.',
+            success: points => `Great! Challenge solved and ${points} points added to your account.`,
+            loginFirst: 'You must log in first',
+            errorAdd: 'Error adding points',
+            serverError: 'Could not connect to server',
+            wrong: 'Incorrect solution. Try again!',
+            checking: 'Checking solution...'
+        }
+    };
+
+    // Set language and update UI
+    function setLang(lang) {
+        localStorage.setItem('lang', lang);
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.getElementById('lang-label').textContent = translations[lang].lang;
+        document.getElementById('challenge-title').textContent = translations[lang].challengeTitle;
+        document.getElementById('sure').textContent = translations[lang].sureBtn;
+        document.getElementById('back-btn-label').textContent = translations[lang].backBtn;
+        renderQuestions(lang);
+    }
+
+    // Render quiz questions based on selected language
+    function renderQuestions(lang) {
+        const box = document.getElementById('questions-box');
+        box.innerHTML = '';
+        quizQuestions.forEach((q, idx) => {
+            const qObj = q[lang];
+            let html = `<div class="mb-4"><div class="mb-2" style="font-weight:bold;font-size:1.1em;">${idx+1}. ${qObj.q}</div>`;
+            qObj.opts.forEach((opt, i) => {
+                html += `
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q${idx}" id="q${idx}_opt${i}" value="${i}">
+                        <label class="form-check-label" for="q${idx}_opt${i}">${opt.replace(/\n/g, '<br>')}</label>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            box.innerHTML += html;
+        });
+    }
+
+    // Initialize language
+    let lang = localStorage.getItem('lang') || 'ar';
+    setLang(lang);
+    document.getElementById('lang-ar').onclick = function(e) {
+        e.preventDefault();
+        setLang('ar');
+    };
+    document.getElementById('lang-en').onclick = function(e) {
+        e.preventDefault();
+        setLang('en');
+    };
+
+    // Check if challenge is already solved for this user
+    let alreadySolved = false;
+    const username = localStorage.getItem('username');
+    async function checkSolved() {
+        if (!username) return;
+        try {
+            const res = await fetch(API + '/userchallenges', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
+            const data = await res.json();
+            if (data.advpython) {
+                alreadySolved = true;
+                document.getElementById('sure').disabled = true;
+                document.getElementById('quiz_msg').innerHTML =
+                    `<div class="alert alert-success">${translations[lang].alreadySolved}</div>`;
+            }
+        } catch (err) {}
+    }
+    checkSolved();
+
+    // Handle quiz form submission
+    document.getElementById('quiz_form').onsubmit = async function(e) {
+        e.preventDefault();
+        const msg = document.getElementById('quiz_msg');
+        if (alreadySolved) {
+            msg.innerHTML = `<div class="alert alert-success">${translations[lang].alreadySolved}</div>`;
+            return;
+        }
+        msg.innerHTML = `<div class="alert alert-info">${translations[lang].checking}</div>`;
+        let correct = true;
+        quizQuestions.forEach((q, idx) => {
+            const radios = document.getElementsByName('q'+idx);
+            let sel = -1;
+            for (let r of radios) if (r.checked) sel = parseInt(r.value);
+            if (sel !== q[lang].ans) correct = false;
+        });
+        if (!username) {
+            msg.innerHTML = `<div class="alert alert-danger">${translations[lang].loginFirst}</div>`;
+            return;
+        }
+        if (correct) {
+            try {
+                const points = 60;
+                const res = await fetch(API + '/addpoints', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, points, challenge: 'advpython' })
+                });
+                const data = await res.json();
+                if (res.ok && data && data.solved) {
+                    msg.innerHTML = `<div class="alert alert-success">${translations[lang].success(points)}</div>`;
+                    alreadySolved = true;
+                    document.getElementById('sure').disabled = true;
+                } else if (res.ok && data && data.alreadySolved) {
+                    msg.innerHTML = `<div class="alert alert-success">${translations[lang].alreadySolved}</div>`;
+                    alreadySolved = true;
+                    document.getElementById('sure').disabled = true;
+                } else {
+                    msg.innerHTML = `<div class='alert alert-danger'>${data.message || translations[lang].errorAdd}</div>`;
+                }
+            } catch (err) {
+                msg.innerHTML = `<div class="alert alert-danger">${translations[lang].serverError}</div>`;
+            }
+        } else {
+            msg.innerHTML = `<div class="alert alert-warning">${translations[lang].wrong}</div>`;
+        }
+    };
+
+    // Back to challenges button
+    document.getElementById('back-btn').onclick = function() {
+        window.location.href = '/home';
+    };
+    </script>
+    <!-- Bootstrap JS for dropdown functionality (optional, only if you want dropdown to work) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

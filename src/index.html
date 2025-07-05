@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <title>CTF - Python</title>
+    <style>
+        #search_input.form-control {
+            border-radius: 15px 0 0 15px !important;
+            background-color: #fff !important;
+            border: 1px solid #000000 !important;
+        }
+        #search_btn.btn {
+            border-radius: 0px 15px 15px 0px !important;
+            border: none !important;
+            border: 1px solid #000000 !important;
+            position: relative;
+            left: -5px;
+            background-color: white !important;
+            color: black !important ;
+        }
+        #search_btn:hover{
+            background-color: rgb(61, 61, 61) !important;
+            color: black !important;
+            border: 1px solid #000000 !important;
+        }
+        #search_form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        #login-btn-des {
+            background-color: black;
+            border: none;
+            transition: 0.7s;
+        }
+        #login-btn-des:hover,
+        #login-btn-des:active,
+        #login-btn-des:focus {
+            background-color: rgb(54, 53, 53) !important;
+            color: #fff !important;
+            box-shadow: 0 0 0 0.2rem #2222 !important;
+        }
+        #signup-btn-des {
+            background-color: black;
+            border: none;
+            transition: 0.7s;
+        }
+        #signup-btn-des:hover,
+        #signup-btn-des:active,
+        #signup-btn-des:focus {
+            background-color: rgb(54, 53, 53) !important;
+            color: #fff !important;
+            box-shadow: 0 0 0 0.2rem #2222 !important;
+        }
+    </style>
+</head>
+<body style="background-color: #111; border-radius: 20px;">
+    <div class="container-xxl">
+        <nav style="border-radius: 30px; border: 3px solid #ffffff00; padding: 20px; margin: 20px 0;" class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Python - CTF - tuwaiq academy</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"></li>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <button class="btn btn-outline-dark dropdown-toggle" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span id="lang-label">العربية</span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="langDropdown">
+                                    <li><a class="dropdown-item" href="#" id="lang-ar">العربية</a></li>
+                                    <li><a class="dropdown-item" href="#" id="lang-en">English</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh; background: linear-gradient(135deg, #123 60%, #111 100%, #312 100%);">
+            <div class="card shadow-lg border-0" style="width: 38rem; background: linear-gradient(135deg, #ffffff00 60%, #e0e7ef 100%); border-radius: 20px;">
+                <div class="card-body p-5">
+                    <ul class="nav nav-tabs mb-4" id="authTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button" role="tab" aria-controls="signup" aria-selected="true">Sign Up</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="false">Login</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="authTabContent">
+                        <div class="tab-pane fade show active" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                            <form id="signup_form">
+                                <div id="signup_msg" class="mb-3"></div>
+                                <div class="mb-3">
+                                    <label style="color: white;" for="signup_username" class="form-label">Username</label>
+                                    <input type="text" class="form-control form-control-lg" id="signup_username" name="username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label style="color: white;" for="signup_name" class="form-label">Name</label>
+                                    <input style="color: black;" type="text" class="form-control form-control-lg" id="signup_name" name="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label style="color: white;" for="signup_key" class="form-label">Key</label>
+                                    <input type="password" class="form-control form-control-lg" id="signup_key" name="key" required>
+                                </div>
+                                <button id="signup-btn-des" style="background-color: black; border: none;" type="submit" class="btn btn-primary btn-lg w-100">Sign Up</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <form id="login_form">
+                                <div id="login_msg" class="mb-3"></div>
+                                <div class="mb-3">
+                                    <label style="color: white;" for="login_username" class="form-label">Username</label>
+                                    <input type="text" class="form-control form-control-lg" id="login_username" name="username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label style="color: white;" for="login_key" class="form-label">Key</label>
+                                    <input type="password" class="form-control form-control-lg" id="login_key" name="key" required>
+                                </div>
+                                <button id="login-btn-des" style="background-color: rgb(41, 41, 41); border: none;" type="submit" class="btn btn-success btn-lg w-100">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // Language translations
+    const translations = {
+        ar: {
+            lang: 'العربية',
+            signupTab: 'تسجيل جديد',
+            loginTab: 'تسجيل دخول',
+            username: 'اسم المستخدم',
+            name: 'الاسم',
+            key: 'كلمة المرور',
+            signupBtn: 'تسجيل جديد',
+            loginBtn: 'تسجيل دخول',
+            signupWait: 'يرجى الانتظار... يتم إنشاء الحساب',
+            signupSuccess: 'تم إنشاء الحساب بنجاح',
+            signupFail: 'فشل في إنشاء الحساب',
+            signupError: 'حدث خطأ غير متوقع أثناء إنشاء الحساب',
+            loginWait: 'يرجى الانتظار... يتم تسجيل الدخول',
+            loginSuccess: 'تم تسجيل الدخول بنجاح',
+            loginFail: 'فشل في تسجيل الدخول',
+            loginError: 'حدث خطأ غير متوقع أثناء تسجيل الدخول',
+        },
+        en: {
+            lang: 'English',
+            signupTab: 'Sign Up',
+            loginTab: 'Login',
+            username: 'Username',
+            name: 'Name',
+            key: 'Key',
+            signupBtn: 'Sign Up',
+            loginBtn: 'Login',
+            signupWait: 'Please wait... Creating account',
+            signupSuccess: 'Account created successfully',
+            signupFail: 'Failed to create account',
+            signupError: 'Unexpected error during signup',
+            loginWait: 'Please wait... Logging in',
+            loginSuccess: 'Logged in successfully',
+            loginFail: 'Login failed',
+            loginError: 'Unexpected error during login',
+        }
+    };
+
+    function setLang(lang) {
+        localStorage.setItem('lang', lang);
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.getElementById('lang-label').textContent = translations[lang].lang;
+        document.getElementById('signup-tab').textContent = translations[lang].signupTab;
+        document.getElementById('login-tab').textContent = translations[lang].loginTab;
+        // Signup
+        document.querySelector('label[for="signup_username"]').textContent = translations[lang].username;
+        document.querySelector('label[for="signup_name"]').textContent = translations[lang].name;
+        document.querySelector('label[for="signup_key"]').textContent = translations[lang].key;
+        document.getElementById('signup-btn-des').textContent = translations[lang].signupBtn;
+        // Login
+        document.querySelector('label[for="login_username"]').textContent = translations[lang].username;
+        document.querySelector('label[for="login_key"]').textContent = translations[lang].key;
+        document.getElementById('login-btn-des').textContent = translations[lang].loginBtn;
+    }
+
+    // On page load, set language
+    let lang = localStorage.getItem('lang') || 'ar';
+    setLang(lang);
+    document.getElementById('lang-ar').onclick = function(e) {
+        e.preventDefault();
+        lang = 'ar';
+        setLang('ar');
+    };
+    document.getElementById('lang-en').onclick = function(e) {
+        e.preventDefault();
+        lang = 'en';
+        setLang('en');
+    };
+
+    document.getElementById('signup_form').onsubmit = async function(e) {
+        e.preventDefault();
+        const msg = document.getElementById('signup_msg');
+        msg.innerHTML = `<div class="alert alert-info">${translations[lang].signupWait}</div>`;
+        const username = document.getElementById('signup_username').value.trim();
+        const name = document.getElementById('signup_name').value.trim();
+        const key = document.getElementById('signup_key').value.trim();
+        if (!username || !name || !key) {
+            msg.innerHTML = `<div class='alert alert-danger'>${translations[lang].signupFail}</div>`;
+            return;
+        }
+        try {
+            const res = await fetch('https://bb11-37-224-52-18.ngrok-free.app/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, name, key })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                msg.innerHTML = `<div class='alert alert-success'>${data.message || translations[lang].signupSuccess}</div>`;
+                document.getElementById('signup_form').reset();
+            } else {
+                msg.innerHTML = `<div class='alert alert-danger'>${data.message || translations[lang].signupFail}</div>`;
+            }
+        } catch (err) {
+            msg.innerHTML = `<div class='alert alert-danger'>${translations[lang].signupError}</div>`;
+        }
+    };
+
+    document.getElementById('login_form').onsubmit = async function(e) {
+        e.preventDefault();
+        const msg = document.getElementById('login_msg');
+        msg.innerHTML = `<div class="alert alert-info">${translations[lang].loginWait}</div>`;
+        const username = document.getElementById('login_username').value.trim();
+        const key = document.getElementById('login_key').value.trim();
+        if (!username || !key) {
+            msg.innerHTML = `<div class='alert alert-danger'>${translations[lang].loginFail}</div>`;
+            return;
+        }
+        try {
+            const res = await fetch('https://bb11-37-224-52-18.ngrok-free.app/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, key })
+            });
+            const data = await res.json();
+            if (res.ok && data.user && data.user.username) {
+                localStorage.setItem('username', data.user.username);
+                msg.innerHTML = `<div class='alert alert-success'>${data.message || translations[lang].loginSuccess}</div>`;
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
+            } else {
+                msg.innerHTML = `<div class='alert alert-danger'>${data.message || translations[lang].loginFail}</div>`;
+            }
+        } catch (err) {
+            msg.innerHTML = `<div class='alert alert-danger'>${translations[lang].loginError}</div>`;
+        }
+    };
+</script>
+</body>
+</html>
